@@ -24,17 +24,7 @@ class CalculatorModel with ChangeNotifier {
     notifyListeners();
   }
 
-  // void pressButton(String buttonText) {
-  //   if (buttonText == 'C') {
-  //     _expression = '';
-  //     _result = '';
-  //   } else if (buttonText == '=') {
-  //     _result = _calculateExpression();
-  //   } else {
-  //     _expression += buttonText;
-  //   }
-  //   notifyListeners();
-  // }
+  
 
   String _calculateExpression() {
     try {
