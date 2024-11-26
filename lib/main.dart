@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_calci/bottomnavbar.dart';
 
 import 'package:flutter_application_calci/providercalci/model.dart';
-import 'package:flutter_application_calci/providercalci/view.dart';
+
 import 'package:provider/provider.dart';
 void main() {
   runApp(
