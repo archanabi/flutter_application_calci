@@ -9,8 +9,7 @@ class BottomNavBarExample extends StatefulWidget {
 }
 
 class _BottomNavBarExampleState extends State<BottomNavBarExample> {
-  int _currentIndex = 0;
-
+  final _currentIndexNotifier = ValueNotifier<int>(0);
   final _screens = [
     CalculatorScreen(),
     GetxCalculator(),
@@ -20,14 +19,18 @@ class _BottomNavBarExampleState extends State<BottomNavBarExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens.elementAt(_currentIndex) ?? Container(), // Safe indexing
+      body: ValueListenableBuilder(
+        valueListenable: _currentIndexNotifier,
+        builder: (context, value, child) {
+          return _screens.elementAt(value) ?? Container();
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
+        
         type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
+        currentIndex: _currentIndexNotifier.value,
         onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          _currentIndexNotifier.value = index;
         },
         items: [
           BottomNavigationBarItem(
@@ -35,7 +38,7 @@ class _BottomNavBarExampleState extends State<BottomNavBarExample> {
             label: 'Provider',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.workspaces_outline),
+            icon: Icon(Icons.workspaces_outline,),
             label: 'Getx',
           ),
           BottomNavigationBarItem(
@@ -47,4 +50,3 @@ class _BottomNavBarExampleState extends State<BottomNavBarExample> {
     );
   }
 }
-
