@@ -71,7 +71,7 @@ class _ImageUploadScreenState extends State<ImageUploadScreen> {
                     : Text('No image selected');
               },
             ),
-        spacer(),
+      Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

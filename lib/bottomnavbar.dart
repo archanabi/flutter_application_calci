@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_calci/ImageUploadScreen1';
+import 'package:flutter_application_calci/ImageUploadScreen1.dart';
+
 import 'package:flutter_application_calci/getxcalci/view.dart';
 import 'package:flutter_application_calci/providercalci/view.dart';
 
