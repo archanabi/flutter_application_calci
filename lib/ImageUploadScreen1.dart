@@ -1,93 +1,146 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImageUploadScreen extends StatefulWidget {
+class GalleryAccess extends StatefulWidget {
+  const GalleryAccess({super.key});
+
   @override
-  _ImageUploadScreenState createState() => _ImageUploadScreenState();
+  State<GalleryAccess> createState() => _GalleryAccessState();
 }
 
-class _ImageUploadScreenState extends State<ImageUploadScreen> {
-  final _imageNotifier = ValueNotifier<XFile?>(null);
-  final ImagePicker _picker = ImagePicker();
-
-  // Function to request permissions
-  Future<void> _requestPermission(Permission permission) async {
-    PermissionStatus status = await permission.request();
-    if (status.isGranted) {
-      print('Permission granted');
-    } else {
-      print('Permission denied');
-      // Optionally show an alert or message to the user explaining why permission is needed
-    }
-  }
-
-  // Function to pick an image from the gallery
-  Future<void> _pickImageFromGallery() async {
-    // Check and request storage permission
-    PermissionStatus status = await Permission.photos.request();
-    if (status.isGranted) {
-      final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        _imageNotifier.value = pickedFile;
-      }
-    } else {
-      print("Permission to access photos denied.");
-    }
-  }
-
-  // Function to capture an image using the camera
-  Future<void> _pickImageFromCamera() async {
-    // Check and request camera permission
-    PermissionStatus status = await Permission.camera.request();
-    if (status.isGranted) {
-      final pickedFile = await _picker.pickImage(source: ImageSource.camera);
-      if (pickedFile != null) {
-        _imageNotifier.value = pickedFile;
-      }
-    } else {
-      print("Permission to access camera denied.");
-    }
-  }
+class _GalleryAccessState extends State<GalleryAccess> {
+  File? galleryFile;
+  final picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
+    // display image selected from gallery
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 240, 240, 249),
+        title: Row(
           children: [
-            // Display the selected image or a placeholder text
-            ValueListenableBuilder(
-              valueListenable: _imageNotifier,
-              builder: (context, image, child) {
-                return image != null
-                    ? Image.file(
-                        File(image.path),
-                        
-                      )
-                    : Text('No image selected');
-              },
-            ),
-      Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: _pickImageFromGallery,
-                  child: Text('Pick from Gallery'),
-                ),
-                ElevatedButton(
-                  onPressed: _pickImageFromCamera,
-                  child: Text('Capture with Camera'),
-                ),
-              ],
+            Text(
+              "Calculator",
+              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20.0),
             ),
           ],
         ),
+        actions: const [],
+      ),
+      body: Builder(
+        builder: (BuildContext context) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Upload image',
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20.0),
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 233, 230, 230),
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
+                      height: 300,
+                      width: double.infinity,
+                      child: GestureDetector(
+                        child: Center(
+                          child: Icon(
+                            Icons.add_circle_outlined,
+                            color: const Color.fromARGB(255, 71, 9, 242),
+                            size: 60.0,
+                          ),
+                        ),
+                        onTap: () {
+                          _showPicker(context: context);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 200.0,
+                  width: 300.0,
+                  child: galleryFile == null
+                      ? const Center(child: Text(''))
+                      : Center(child: Image.file(galleryFile!)),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
+
+  void _showPicker({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'Upload via',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w900),
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Gallery'),
+                onTap: () {
+                  getImage(ImageSource.gallery);
+                  Navigator.of(context).pop();
+                },
+              ),
+              Divider(
+                thickness: 1.0,
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_camera),
+                title: const Text('Camera'),
+                onTap: () {
+                  getImage(ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future getImage(
+    ImageSource img,
+  ) async {
+    final pickedFile = await picker.pickImage(source: img);
+    XFile? xfilePick = pickedFile;
+    setState(() {
+      if (xfilePick != null) {
+        galleryFile = File(pickedFile!.path);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('selected nothing')),
+        );
+      }
+    });
+  }
 }
+

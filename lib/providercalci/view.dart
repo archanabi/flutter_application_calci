@@ -32,115 +32,110 @@ final Set<String> operators = {'+', '-', '×', '÷', '='};
       builder: (context, model, child) {
         return Scaffold(
    
-          body: SingleChildScrollView(
-            child: Container(
-            height: MediaQuery.of(context).size.height,
-              color: Color.fromARGB(255, 240, 240, 249),
-              child: Column(
+          body: Container(
+          height: MediaQuery.of(context).size.height,
+            color: Color.fromARGB(255, 240, 240, 249),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                  Padding(
+               padding: const EdgeInsets.all(24.0),
+               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                    Padding(
-                 padding: const EdgeInsets.all(24.0),
-                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                   children: [
-                  Image.network(
-                    height: 25,
-                    width: 25,
-                    'https://media.licdn.com/dms/image/v2/C560BAQHHuhMcDOUAvA/company-logo_200_200/company-logo_200_200/0/1649683807283/radicalstart_logo?e=2147483647&v=beta&t=UJDRQrJaf2BOtfK-9IwzqVqnqD-J84rWqqEyyEvzzP0'),
-                     Text("Radical Start",style: TextStyle(fontWeight: FontWeight.w900,fontSize: 20.0),),
-                   ],
-                 ),
+                 children: [
+               
+                   Text("Calculator",style: TextStyle(fontWeight: FontWeight.w900,fontSize: 20.0),),
+                 ],
                ),
-                  Expanded(
-                    child: Container(decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0),topRight: Radius.circular(40.0))
-                    ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildButton('C', context),
-                              _buildButton('%', context),
-                              _buildButton('⌫', context),
-                              _buildButton('÷', context),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildButton('7', context),
-                              _buildButton('8', context),
-                              _buildButton('9', context),
-                              _buildButton('×', context),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildButton('4', context),
-                              _buildButton('5', context),
-                              _buildButton('6', context),
-                              _buildButton('-', context),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildButton('1', context),
-                              _buildButton('2', context),
-                              _buildButton('3', context),
-                              _buildButton('+', context),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             ),
+                Expanded(
+                  child: Container(decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0),topRight: Radius.circular(40.0))
+                  ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildButton('.', context),
-                              _buildButton('0', context),
-                              _buildButton('00', context),
-                              _buildButton('=', context),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 238, 232, 232),
-                                borderRadius: BorderRadius.all(Radius.circular(30.0))
-                              ),
-                              child: Column(
-                                children: [
-                                   Text(
-                                     model.result,
-                                  style: TextStyle(fontSize: 48),),
-                                    Text(
-                                     model.expression,
-                                     style: TextStyle(fontSize: 24),),
-                            
-                                    
-                                ],
-                              ),
+                          children: [
+                            _buildButton('C', context),
+                            _buildButton('%', context),
+                            _buildButton('⌫', context),
+                            _buildButton('÷', context),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildButton('7', context),
+                            _buildButton('8', context),
+                            _buildButton('9', context),
+                            _buildButton('×', context),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildButton('4', context),
+                            _buildButton('5', context),
+                            _buildButton('6', context),
+                            _buildButton('-', context),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildButton('1', context),
+                            _buildButton('2', context),
+                            _buildButton('3', context),
+                            _buildButton('+', context),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildButton('.', context),
+                            _buildButton('0', context),
+                            _buildButton('00', context),
+                            _buildButton('=', context),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 238, 232, 232),
+                              borderRadius: BorderRadius.all(Radius.circular(30.0))
+                            ),
+                            child: Column(
+                              children: [
+                                 Text(
+                                   model.result,
+                                style: TextStyle(fontSize: 48),),
+                                  Text(
+                                   model.expression,
+                                   style: TextStyle(fontSize: 24),),
+                          
+                                  
+                              ],
                             ),
                           ),
-                           ],
-                        
-                      ),
+                        ),
+                         ],
+                      
                     ),
                   ),
-                ],
-                
-              ),
+                ),
+              ],
+              
             ),
           ),
           
